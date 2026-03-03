@@ -259,7 +259,7 @@ function App() {
 
     const signals = schema.widgets.map(w => w.signal_binding);
 
-    const socket = new WebSocket("ws://localhost:8000/ws/telemetry");
+    const socket = new WebSocket("wss://genai-dashboard-backend.onrender.com/ws/telemetry");
 
     socket.onopen = () => {
       socket.send(JSON.stringify({ signals }));
@@ -282,7 +282,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/chat", {
+      const response = await fetch("https://genai-dashboard-backend.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -307,7 +307,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/finalize", {
+      const response = await fetch("https://genai-dashboard-backend.onrender.com/finalize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -319,7 +319,7 @@ function App() {
       setSchema(data.dashboard_schema);
 
       const traceRes = await fetch(
-        `http://localhost:8000/traceability?session_id=${sessionId}`
+        `https://genai-dashboard-backend.onrender.com/traceability?session_id=${sessionId}`
       );
 
       const traceData = await traceRes.json();
